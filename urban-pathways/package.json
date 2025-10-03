@@ -1,0 +1,24 @@
+{
+  "name": "urban-pathways",
+  "version": "1.0.0",
+  "description": "Jogo educativo de planejamento urbano para NASA Space Apps Hackathon",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -o",
+    "dev": "npx live-server --port=8080 --open=/index.html"
+  },
+  "keywords": [
+    "nasa",
+    "space-apps",
+    "urban-planning",
+    "sustainability",
+    "education",
+    "game"
+  ],
+  "author": "NASA Space Apps Hackathon Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  }
+}
