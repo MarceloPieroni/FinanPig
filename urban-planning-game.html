@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Urban Pathways - NASA Space Apps</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  <link href="urban-planning-game.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Tela de Início -->
+  <div id="startScreen">
+    <div class="start-content">
+      <h1 class="game-title">Urban Pathways</h1>
+      <p class="game-subtitle">Data Pathways to Healthy Cities and Human Settlements</p>
+      <p class="game-description">
+        Transforme sua cidade através de decisões inteligentes de planejamento urbano. 
+        Veja em tempo real como suas escolhas afetam a temperatura, poluição e qualidade de vida.
+      </p>
+      <button id="startButton" class="btn btn-primary btn-lg">Iniciar Simulação</button>
+    </div>
+  </div>
+
+  <!-- Interface Principal do Jogo -->
+  <div id="gameInterface" style="display: none;">
+    <!-- Barra Superior com Indicadores -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <div class="navbar-brand">
+          <h4 class="mb-0">🌆 Urban Pathways</h4>
+        </div>
+        
+        <div class="d-flex align-items-center gap-4">
+          <!-- Indicador de Temperatura -->
+          <div class="indicator-card temperature">
+            <div class="indicator-icon">🌡️</div>
+            <div class="indicator-content">
+              <div class="indicator-label">Temperatura</div>
+              <div class="indicator-value" id="temperatureValue">25°C</div>
+            </div>
+          </div>
+
+          <!-- Indicador de Poluição -->
+          <div class="indicator-card pollution">
+            <div class="indicator-icon">🏭</div>
+            <div class="indicator-content">
+              <div class="indicator-label">Poluição do Ar</div>
+              <div class="indicator-value" id="pollutionValue">Moderada</div>
+            </div>
+          </div>
+
+          <!-- Indicador de Qualidade de Vida -->
+          <div class="indicator-card quality">
+            <div class="indicator-icon">❤️</div>
+            <div class="indicator-content">
+              <div class="indicator-label">Qualidade de Vida</div>
+              <div class="indicator-value" id="qualityValue">Boa</div>
+            </div>
+          </div>
+
+          <button id="backToMenu" class="btn btn-outline-light">Voltar ao Menu</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Área Principal do Jogo -->
+    <div class="game-container">
+      <!-- Painel de Ações -->
+      <div class="actions-panel">
+        <h5>🏗️ Ações de Planejamento Urbano</h5>
+        <div class="actions-grid">
+          <button class="action-btn" id="buildPark">
+            <div class="action-icon">🌳</div>
+            <div class="action-text">
+              <div class="action-title">Construir Parque</div>
+              <div class="action-impact">-2°C | -1 Poluição | +2 Qualidade</div>
+            </div>
+          </button>
+
+          <button class="action-btn" id="expandCity">
+            <div class="action-icon">🏢</div>
+            <div class="action-text">
+              <div class="action-title">Expandir Cidade</div>
+              <div class="action-impact">+3°C | +2 Poluição | -1 Qualidade</div>
+            </div>
+          </button>
+
+          <button class="action-btn" id="buildBikeLane">
+            <div class="action-icon">🚴</div>
+            <div class="action-text">
+              <div class="action-title">Criar Ciclovia</div>
+              <div class="action-impact">-1°C | -1 Poluição | +1 Qualidade</div>
+            </div>
+          </button>
+
+          <button class="action-btn" id="plantTrees">
+            <div class="action-icon">🌲</div>
+            <div class="action-text">
+              <div class="action-title">Plantar Árvores</div>
+              <div class="action-impact">-1°C | -1 Poluição | +1 Qualidade</div>
+            </div>
+          </button>
+
+          <button class="action-btn" id="buildSolar">
+            <div class="action-icon">☀️</div>
+            <div class="action-text">
+              <div class="action-title">Energia Solar</div>
+              <div class="action-impact">-2°C | -2 Poluição | +1 Qualidade</div>
+            </div>
+          </button>
+
+          <button class="action-btn" id="publicTransport">
+            <div class="action-icon">🚌</div>
+            <div class="action-text">
+              <div class="action-title">Transporte Público</div>
+              <div class="action-impact">-1°C | -2 Poluição | +2 Qualidade</div>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Área de Visualização da Cidade -->
+      <div class="city-view">
+        <canvas id="cityCanvas"></canvas>
+        <div class="city-info">
+          <h5>🏙️ Vista da Cidade</h5>
+          <p id="cityDescription">Uma cidade moderna aguardando suas decisões de planejamento urbano.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel de Feedback Educativo -->
+    <div class="feedback-panel" id="feedbackPanel" style="display: none;">
+      <div class="feedback-content">
+        <h5 id="feedbackTitle">Impacto da Decisão</h5>
+        <p id="feedbackText"></p>
+        <div class="feedback-actions">
+          <button class="btn btn-primary" id="continueBtn">Continuar</button>
+          <button class="btn btn-secondary" id="learnMoreBtn">Saber Mais</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Informações Educativas -->
+  <div class="modal fade" id="infoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="infoModalTitle">Informação Científica</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="infoModalBody">
+          <!-- Conteúdo será inserido dinamicamente -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="urban-planning-game.js"></script>
+</body>
+</html>
